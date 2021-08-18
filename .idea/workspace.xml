@@ -3,6 +3,7 @@
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="me.jacksondasheng.redditConsole.Main" />
+      <module name="RedditConsole" />
     </configuration>
   </component>
 </project>
