@@ -29,11 +29,11 @@ public class Main
                     break;
                 }
             }
-
+            
             JSONObject json = new JSONObject(lineOfPost.substring(34));
             json = json.getJSONObject("widgets").getJSONObject("models").getJSONObject(json.getJSONObject("widgets").getJSONObject("idCardIds").getString(json.getJSONObject("publicAccessNetwork").getJSONObject("api").getJSONObject("config").getJSONObject("subreddits").getJSONObject("r/" + subreddit).getString("id")));
 
-            System.out.print("    About Community\n" + "        ");
+            System.out.print("    About Community\n        ");
 
             if(json.getString("subscribersText").equals(""))
             {
