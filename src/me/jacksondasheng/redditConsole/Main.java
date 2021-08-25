@@ -2,9 +2,7 @@ package me.jacksondasheng.redditConsole;
 
 import java.io.IOException;
 import java.util.Scanner;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -66,7 +64,7 @@ public class Main
 
             post(post);
         }
-        catch(HttpStatusException exc)
+        catch(Exception exc)
         {
             System.out.println("Sorry, page \"" + link + "\" not found, make sure you don't have a typo");
         }
@@ -142,7 +140,7 @@ public class Main
                     System.out.println();
                 }
             }
-            catch(JSONException exc)
+            catch(Exception exc)
             {}
         }
     }
