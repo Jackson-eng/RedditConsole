@@ -2,17 +2,19 @@ package me.jacksondasheng.redditConsole;
 
 import java.io.IOException;
 import java.util.Scanner;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 public class Main
 {
-    public static String lineOfPost = null, subreddit = "";
+    public static String subreddit = "";
 
     public static void main(String[] args) throws IOException
     {
-        String link = getLink();
+        String lineOfPost = null, link = getLink();
 
         try
         {
@@ -29,11 +31,11 @@ public class Main
                     break;
                 }
             }
-            
+
             JSONObject json = new JSONObject(lineOfPost.substring(34));
             json = json.getJSONObject("widgets").getJSONObject("models").getJSONObject(json.getJSONObject("widgets").getJSONObject("idCardIds").getString(json.getJSONObject("publicAccessNetwork").getJSONObject("api").getJSONObject("config").getJSONObject("subreddits").getJSONObject("r/" + subreddit).getString("id")));
 
-            System.out.print("    About Community\n        ");
+            System.out.print("    About Community\n" + "        ");
 
             if(json.getString("subscribersText").equals(""))
             {
@@ -64,7 +66,7 @@ public class Main
 
             post(post);
         }
-        catch(Exception exc)
+        catch(HttpStatusException exc)
         {
             System.out.println("Sorry, page \"" + link + "\" not found, make sure you don't have a typo");
         }
@@ -117,9 +119,7 @@ public class Main
                 }
             }
 
-            line = line.replace(";</script>", "");
-
-            JSONObject json = new JSONObject(line);
+            JSONObject json = new JSONObject(line.replace(";</script>", ""));
 
             try
             {
@@ -140,7 +140,7 @@ public class Main
                     System.out.println();
                 }
             }
-            catch(Exception exc)
+            catch(JSONException exc)
             {}
         }
     }
