@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Scanner;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -20,8 +19,6 @@ public class Main
         {
             Document doc = Jsoup.connect(link).get();
 
-            System.out.println("\n" + doc.title());
-
             for(String line : doc.getAllElements().toString().split("\n"))
             {
                 if(line.contains("<script id=\"data\">"))
@@ -34,6 +31,8 @@ public class Main
 
             JSONObject json = new JSONObject(lineOfPost.substring(34));
             json = json.getJSONObject("widgets").getJSONObject("models").getJSONObject(json.getJSONObject("widgets").getJSONObject("idCardIds").getString(json.getJSONObject("publicAccessNetwork").getJSONObject("api").getJSONObject("config").getJSONObject("subreddits").getJSONObject("r/" + subreddit).getString("id")));
+
+            System.out.println("\n" + doc.title());
 
             System.out.print("    About Community\n" + "        ");
 
@@ -66,9 +65,9 @@ public class Main
 
             post(post);
         }
-        catch(HttpStatusException exc)
+        catch(JSONException exc)
         {
-            System.out.println("Sorry, page \"" + link + "\" not found, make sure you don't have a typo");
+            System.out.println("\nSorry, page \"" + link + "\" not found, make sure you don't have a typo");
         }
     }
 
